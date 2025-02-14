@@ -10,13 +10,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
-import { PartyPopper, Cake, HeartCrack } from "lucide-react";
+import { PartyPopper, Cake } from "lucide-react";
 
 export default function RsvpForm() {
   const [, navigate] = useLocation();
   const { toast } = useToast();
   const [showForm, setShowForm] = useState<boolean | null>(null);
-  const [showDeclineMessage, setShowDeclineMessage] = useState(false);
 
   const form = useForm<InsertRsvp>({
     resolver: zodResolver(insertRsvpSchema),
@@ -33,7 +32,9 @@ export default function RsvpForm() {
       await apiRequest("POST", "/api/rsvp", data);
     },
     onSuccess: () => {
-      navigate("/thank-you");
+      if (form.getValues("attending")) {
+        navigate("/thank-you");
+      }
     },
     onError: (error) => {
       toast({
@@ -45,28 +46,18 @@ export default function RsvpForm() {
   });
 
   const handleDecline = () => {
-    setShowDeclineMessage(true);
     mutate({
       name: "Guest",
       email: "declined@example.com",
       guestCount: 1,
       attending: false,
     });
+    toast({
+      title: "Response Recorded",
+      description: "Sorry you can't make it! We'll miss you! 😢",
+    });
+    setShowForm(false);
   };
-
-  if (showDeclineMessage) {
-    return (
-      <Card className="max-w-md mx-auto">
-        <CardContent className="pt-6 text-center">
-          <HeartCrack className="h-12 w-12 mx-auto mb-4 text-primary" />
-          <h2 className="text-2xl font-semibold mb-4">We'll Miss You! 😢</h2>
-          <p className="text-muted-foreground mb-6">
-            Sorry you can't make it to our special celebration. We'll be thinking of you! 🎈
-          </p>
-        </CardContent>
-      </Card>
-    );
-  }
 
   if (showForm === null) {
     return (
