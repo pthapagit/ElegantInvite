@@ -1,0 +1,21 @@
+{
+  "name": "Event RSVP App",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:18",
+  "features": {
+    "ghcr.io/devcontainers/features/postgres:1": {
+      "version": "latest",
+      "port": 5432
+    }
+  },
+  "forwardPorts": [5000, 5432],
+  "postCreateCommand": "npm install",
+  "postStartCommand": "bash .devcontainer/start.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode"
+      ]
+    }
+  }
+}
