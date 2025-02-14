@@ -7,14 +7,15 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Switch } from "@/components/ui/switch";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
 
 export default function RsvpForm() {
   const [, navigate] = useLocation();
   const { toast } = useToast();
-  
+  const [showForm, setShowForm] = useState<boolean | null>(null);
+
   const form = useForm<InsertRsvp>({
     resolver: zodResolver(insertRsvpSchema),
     defaultValues: {
@@ -41,14 +42,54 @@ export default function RsvpForm() {
     },
   });
 
+  const handleDecline = () => {
+    mutate({
+      name: "Guest",
+      email: "declined@example.com",
+      guestCount: 1,
+      attending: false,
+    });
+  };
+
+  if (showForm === null) {
+    return (
+      <Card className="max-w-md mx-auto">
+        <CardHeader>
+          <CardTitle>Will you attend?</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex gap-4">
+            <Button 
+              onClick={() => setShowForm(true)}
+              className="flex-1 bg-primary"
+            >
+              Accept
+            </Button>
+            <Button 
+              onClick={handleDecline}
+              variant="outline" 
+              className="flex-1"
+            >
+              Decline
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (!showForm) {
+    return null;
+  }
+
   return (
     <Card className="max-w-md mx-auto">
       <CardHeader>
-        <CardTitle>RSVP Now</CardTitle>
+        <CardTitle>RSVP Details</CardTitle>
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit((data) => mutate(data))} className="space-y-6">
+          <form onSubmit={form.handleSubmit((data) => mutate({ ...data, attending: true }))} className="space-y-6">
             <FormField
               control={form.control}
               name="name"
@@ -92,25 +133,6 @@ export default function RsvpForm() {
                       onChange={(e) => field.onChange(parseInt(e.target.value))}
                     />
                   </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="attending"
-              render={({ field }) => (
-                <FormItem>
-                  <div className="flex items-center gap-2">
-                    <FormControl>
-                      <Switch
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                    </FormControl>
-                    <FormLabel>I will attend</FormLabel>
-                  </div>
                   <FormMessage />
                 </FormItem>
               )}
