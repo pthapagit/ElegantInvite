@@ -4,52 +4,59 @@ import { Calendar, MapPin, Clock } from "lucide-react";
 export default function EventDetails() {
   return (
     <div className="text-center max-w-4xl mx-auto">
-      <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+      <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary/90 to-purple-500 bg-clip-text text-transparent animate-in fade-in slide-in-from-bottom-4 duration-1000">
         You're Invited!
       </h1>
-      <p className="text-xl md:text-2xl text-muted-foreground mb-8">
+      <p className="text-xl md:text-2xl text-muted-foreground mb-12 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200">
         Join us for an evening of celebration
       </p>
 
-      <div className="relative mb-12">
+      <div className="relative mb-16 rounded-xl overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-1000 delay-300">
         <img
-          src="https://images.unsplash.com/photo-1606048005590-ac109542b311"
+          src="/src/images/Kiansh.png"
           alt="Event celebration"
-          className="rounded-lg shadow-xl w-full aspect-video object-cover"
+          className="w-full aspect-[21/9] object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent rounded-lg" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60" />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-        <Card>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-400">
+        <Card className="transform transition-all duration-300 hover:scale-105">
           <CardContent className="pt-6">
-            <Calendar className="h-8 w-8 mb-2 mx-auto text-primary" />
-            <h3 className="font-semibold mb-1">Date</h3>
-            <p className="text-muted-foreground">December 31, 2024</p>
+            <div className="p-3 bg-primary/10 rounded-full w-fit mx-auto mb-4">
+              <Calendar className="h-8 w-8 text-primary" />
+            </div>
+            <h3 className="font-semibold text-lg mb-2">Date</h3>
+            <p className="text-muted-foreground">February 15, 2025</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="transform transition-all duration-300 hover:scale-105">
           <CardContent className="pt-6">
-            <Clock className="h-8 w-8 mb-2 mx-auto text-primary" />
-            <h3 className="font-semibold mb-1">Time</h3>
-            <p className="text-muted-foreground">7:00 PM - 11:00 PM</p>
+            <div className="p-3 bg-primary/10 rounded-full w-fit mx-auto mb-4">
+              <Clock className="h-8 w-8 text-primary" />
+            </div>
+            <h3 className="font-semibold text-lg mb-2">Time</h3>
+            <p className="text-muted-foreground">5:00 PM</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="transform transition-all duration-300 hover:scale-105">
           <CardContent className="pt-6">
-            <MapPin className="h-8 w-8 mb-2 mx-auto text-primary" />
-            <h3 className="font-semibold mb-1">Location</h3>
-            <p className="text-muted-foreground">Grand Ballroom</p>
+            <div className="p-3 bg-primary/10 rounded-full w-fit mx-auto mb-4">
+              <MapPin className="h-8 w-8 text-primary" />
+            </div>
+            <h3 className="font-semibold text-lg mb-2">Location</h3>
+            <p className="text-muted-foreground">Thapa Home Euless</p>
           </CardContent>
         </Card>
       </div>
 
-      <div className="prose prose-lg mx-auto">
-        <p>
+      <div className="prose prose-lg mx-auto bg-white/50 p-8 rounded-xl shadow-inner">
+        <p className="text-muted-foreground">
           We invite you to join us for an unforgettable evening of celebration.
-          There will be music, dancing, and delicious food. Dress code is formal.
+          There will be music, dancing, and delicious food. Dress code is
+          formal.
         </p>
       </div>
     </div>
