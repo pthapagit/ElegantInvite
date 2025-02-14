@@ -12,7 +12,7 @@ export default function ThankYou() {
             <PartyPopper className="h-12 w-12 mx-auto mb-4 text-primary" />
             <h1 className="text-2xl font-bold mb-4">Thank You!</h1>
             <p className="text-muted-foreground mb-6">
-              Your RSVP has been received. We look forward to celebrating with you!
+              Your RSVP has been received!
             </p>
             <Link href="/">
               <Button>Return Home</Button>

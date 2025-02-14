@@ -11,15 +11,14 @@ export default function EventDetails() {
         Join us for an evening of celebration
       </p>
 
-      <div className="relative mb-16 max-w-[400px] mx-auto">
-        <div className="aspect-[3/4] relative rounded-xl overflow-hidden shadow-2xl">
-          <img
-            src="/src/images/Kiansh1.jpeg"
-            alt="Event celebration"
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-        </div>
+      <div className="relative mb-12">
+        <img
+          src="src/images/Kiansh1.jpeg"
+          alt="Event celebration"
+          className="rounded-lg shadow-xl w-full aspect-video object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-transparent rounded-lg" />
+
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
