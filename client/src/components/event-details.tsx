@@ -5,21 +5,20 @@ export default function EventDetails() {
   return (
     <div className="text-center max-w-4xl mx-auto">
       <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-        You're Invited!
+        Kiansh is Two !
       </h1>
       <p className="text-xl md:text-2xl text-muted-foreground mb-8">
         Join us for an evening of celebration
       </p>
 
-      <div className="relative mb-16 rounded-xl overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-1000 delay-300 max-w-md mx-auto">
-        <div className="aspect-[3/4] relative">
-          <img
-            src="/src/images/Kiansh1.jpeg"
-            alt="Event celebration"
-            className="absolute inset-0 w-full h-full object-contain"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30 pointer-events-none" />
-        </div>
+      <div className="relative mb-12">
+        <img
+          src="src/images/Kiansh1.jpeg"
+          alt="Event celebration"
+          className="rounded-lg shadow-xl w-full aspect-video object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-transparent rounded-lg" />
+
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
@@ -50,9 +49,7 @@ export default function EventDetails() {
 
       <div className="prose prose-lg mx-auto">
         <p>
-          We invite you to join us for an unforgettable evening of celebration.
-          There will be music, dancing, and delicious food. Dress code is
-          formal.
+          We invite you to join for Kinash's second Birthday Celebration
         </p>
       </div>
     </div>

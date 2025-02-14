@@ -10,11 +10,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
+import { PartyPopper, Cake, HeartCrack } from "lucide-react";
 
 export default function RsvpForm() {
   const [, navigate] = useLocation();
   const { toast } = useToast();
   const [showForm, setShowForm] = useState<boolean | null>(null);
+  const [showDeclineMessage, setShowDeclineMessage] = useState(false);
 
   const form = useForm<InsertRsvp>({
     resolver: zodResolver(insertRsvpSchema),
@@ -43,6 +45,7 @@ export default function RsvpForm() {
   });
 
   const handleDecline = () => {
+    setShowDeclineMessage(true);
     mutate({
       name: "Guest",
       email: "declined@example.com",
@@ -51,11 +54,28 @@ export default function RsvpForm() {
     });
   };
 
+  if (showDeclineMessage) {
+    return (
+      <Card className="max-w-md mx-auto">
+        <CardContent className="pt-6 text-center">
+          <HeartCrack className="h-12 w-12 mx-auto mb-4 text-primary" />
+          <h2 className="text-2xl font-semibold mb-4">We'll Miss You! 😢</h2>
+          <p className="text-muted-foreground mb-6">
+            Sorry you can't make it to our special celebration. We'll be thinking of you! 🎈
+          </p>
+        </CardContent>
+      </Card>
+    );
+  }
+
   if (showForm === null) {
     return (
       <Card className="max-w-md mx-auto">
         <CardHeader>
-          <CardTitle>Will you attend?</CardTitle>
+          <CardTitle className="flex items-center justify-center gap-2">
+            <Cake className="h-6 w-6" />
+            Will you join our celebration? 🎉
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex gap-4">
@@ -63,14 +83,14 @@ export default function RsvpForm() {
               onClick={() => setShowForm(true)}
               className="flex-1 bg-primary"
             >
-              Accept
+              Accept 🥳
             </Button>
             <Button 
               onClick={handleDecline}
               variant="outline" 
               className="flex-1"
             >
-              Decline
+              Decline 😢
             </Button>
           </div>
         </CardContent>
@@ -85,7 +105,10 @@ export default function RsvpForm() {
   return (
     <Card className="max-w-md mx-auto">
       <CardHeader>
-        <CardTitle>RSVP Details</CardTitle>
+        <CardTitle className="flex items-center justify-center gap-2">
+          <PartyPopper className="h-6 w-6" />
+          RSVP Details 🎈
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -139,7 +162,7 @@ export default function RsvpForm() {
             />
 
             <Button type="submit" className="w-full" disabled={isPending}>
-              {isPending ? "Submitting..." : "Submit RSVP"}
+              {isPending ? "Submitting..." : "Submit RSVP 🎊"}
             </Button>
           </form>
         </Form>
