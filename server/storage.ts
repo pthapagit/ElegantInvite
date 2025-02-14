@@ -1,4 +1,6 @@
 import { rsvps, type Rsvp, type InsertRsvp } from "@shared/schema";
+import { db } from "./db";
+import { eq } from "drizzle-orm";
 
 export interface IStorage {
   getRsvps(): Promise<Rsvp[]>;
@@ -6,34 +8,27 @@ export interface IStorage {
   getRsvpStats(): Promise<{ totalAttending: number; totalRsvps: number }>;
 }
 
-export class MemStorage implements IStorage {
-  private rsvps: Map<number, Rsvp>;
-  private currentId: number;
-
-  constructor() {
-    this.rsvps = new Map();
-    this.currentId = 1;
-  }
-
+export class DatabaseStorage implements IStorage {
   async getRsvps(): Promise<Rsvp[]> {
-    return Array.from(this.rsvps.values());
+    return await db.select().from(rsvps);
   }
 
   async createRsvp(insertRsvp: InsertRsvp): Promise<Rsvp> {
-    const id = this.currentId++;
-    const rsvp: Rsvp = { ...insertRsvp, id };
-    this.rsvps.set(id, rsvp);
+    const [rsvp] = await db
+      .insert(rsvps)
+      .values(insertRsvp)
+      .returning();
     return rsvp;
   }
 
   async getRsvpStats(): Promise<{ totalAttending: number; totalRsvps: number }> {
-    const rsvps = Array.from(this.rsvps.values());
-    const attending = rsvps.filter(r => r.attending);
+    const allRsvps = await this.getRsvps();
+    const attending = allRsvps.filter(r => r.attending);
     return {
       totalAttending: attending.reduce((sum, r) => sum + r.guestCount, 0),
-      totalRsvps: rsvps.length
+      totalRsvps: allRsvps.length
     };
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
