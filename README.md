@@ -1,27 +1,4 @@
-# Event RSVP Application
-
-A dynamic web application for event invitation management, focusing on user-friendly RSVP experiences and visual event presentation.
-
-## Development with GitHub Codespaces
-
-1. Open this repository in GitHub Codespaces
-2. The environment will automatically:
-   - Install Node.js and dependencies
-   - Set up PostgreSQL database
-   - Configure environment variables
-   - Start the development server
-
-The application will be available on port 5000.
-
-## Local Development
-
-If you want to run the application locally:
-
-1. Install PostgreSQL
-2. Create a database named `event_rsvp`
-3. Set up environment variables:
-   ```
-   DATABASE_URL=postgres://postgres:postgres@localhost:5432/event_rsvp
+DATABASE_URL=postgres://postgres:postgres@localhost:5432/event_rsvp
    PGUSER=postgres
    PGPASSWORD=postgres
    PGDATABASE=event_rsvp
@@ -42,3 +19,31 @@ If you want to run the application locally:
    ```
 
 The application will be available at `http://localhost:5000`
+
+## Firebase Deployment
+
+To deploy the application to Firebase:
+
+1. Build the application:
+   ```bash
+   npm run build
+   ```
+
+2. Log in to Firebase:
+   ```bash
+   npx firebase login
+   ```
+
+3. Initialize Firebase (if not already done):
+   ```bash
+   npx firebase init
+   ```
+   - Select "Hosting"
+   - Choose your Firebase project
+   - Use "dist/public" as your public directory
+   - Configure as a single-page app: Yes
+   - Don't overwrite index.html: No
+
+4. Deploy to Firebase:
+   ```bash
+   npx firebase deploy
